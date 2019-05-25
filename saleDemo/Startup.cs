@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using saleDemo.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace saleDemo
 {
@@ -31,10 +33,12 @@ namespace saleDemo
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddDbContext<BaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            var connection = @"Server=sqlserver-test.c7y7hmoisyiw.us-east-1.rds.amazonaws.com;Database=saledb;Trusted_Connection=True;ConnectRetryCount=0";
+            //var connection = @"Server=sqlserver-test.c7y7hmoisyiw.us-east-1.rds.amazonaws.com;Database=saledb;Trusted_Connection=True;ConnectRetryCount=0";
+            //services.AddDbContext<>
             //services.AddDbContext<BloggingContext>(options => options.UseSqlServer(connection));
         }
 
